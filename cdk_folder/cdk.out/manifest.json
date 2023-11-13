@@ -1,0 +1,107 @@
+{
+  "version": "35.0.0",
+  "artifacts": {
+    "CdkFolderStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "CdkFolderStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "CdkFolderStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "CdkFolderStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c2ddaee9de43e1a68a9394b506ec25620fe95832e690692f62c358bf62abc055.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "CdkFolderStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "CdkFolderStack.assets"
+      ],
+      "metadata": {
+        "/CdkFolderStack/MyLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyLayer38944FA5"
+          }
+        ],
+        "/CdkFolderStack/Premier-Web-Scraper/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PremierWebScraperServiceRole090A1C97"
+          }
+        ],
+        "/CdkFolderStack/Premier-Web-Scraper/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PremierWebScraperServiceRoleDefaultPolicy9A18B41B"
+          }
+        ],
+        "/CdkFolderStack/Premier-Web-Scraper/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PremierWebScraperFD38134D"
+          }
+        ],
+        "/CdkFolderStack/DailyRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DailyRule7A0FEF67"
+          }
+        ],
+        "/CdkFolderStack/DailyRule/AllowEventRuleCdkFolderStackPremierWebScraper9280DD37": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DailyRuleAllowEventRuleCdkFolderStackPremierWebScraper9280DD37255C051A"
+          }
+        ],
+        "/CdkFolderStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/CdkFolderStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/CdkFolderStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/CdkFolderStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "CdkFolderStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
