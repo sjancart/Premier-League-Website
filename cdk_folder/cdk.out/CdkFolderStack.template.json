@@ -88,7 +88,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "d6284c8b7220655308986448a7f1ee436269bd80e5229f00f93019b5148254c8.zip"
+     "S3Key": "720f92e82509b5f906ade688f957b86eb9203780329fc264ffa411d4ef005806.zip"
     },
     "Handler": "Main.lambda_handler",
     "Layers": [
@@ -111,7 +111,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "CdkFolderStack/Premier-Web-Scraper/Resource",
-    "aws:asset:path": "asset.d6284c8b7220655308986448a7f1ee436269bd80e5229f00f93019b5148254c8.zip",
+    "aws:asset:path": "asset.720f92e82509b5f906ade688f957b86eb9203780329fc264ffa411d4ef005806.zip",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }

@@ -10,6 +10,7 @@ day_instances = []
 
 class Game:
     
+    # Finds the Team object that corrosponds with the team name given
     def findTeam(self, team):
         for i in range(len(ti)):
             if ti[i].name == team:
@@ -18,7 +19,6 @@ class Game:
         return team
 
     def __init__(self, day, homeTeam, awayTeam, time, stream, venue):
-
         self.day = day
         self.time = time
         self.homeTeam = self.findTeam(homeTeam)
@@ -55,12 +55,14 @@ class Games:
                     # Checks if the game has a steaming service. If not, stream equals ''
                     if len(gtable[i]) < 5:
                         gtable[i].insert(3,'')
+                    
+                    # Checks if one of the teams is named "Wolverhampton" as they go by "Wolverhampton Wanderers" on the website webscraped by Teams.py
                     if gtable[i][0] == 'Wolverhampton':
                         gtable[i][0] = 'Wolverhampton Wanderers'
                     elif gtable[i][1] == 'Wolverhampton':
                         gtable[i][1] = 'Wolverhampton Wanderers'
                     
-                    # Creates a object of Game and sets all variables
+                    # Creates an object of Game and sets all variables
                     game = Game(today_date, gtable[i][0],gtable[i][1],gtable[i][2],gtable[i][3],gtable[i][4])
                     list_of_games.append(game)
             else:
@@ -87,7 +89,6 @@ class Day:
     def addGame(self, response_games):
         g = Games(response_games)
         self.games = g
-        # self.games.append(g)
         return self.games
 
     def __init__(self, response_games, date):

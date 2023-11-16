@@ -26,7 +26,7 @@ def sort (conflicts):
     
     return array
 
-def rank(ti,di):
+def rank(di):
     schedule = []           # Holds the games in date order, time order, then ranked order if conflicts
     conflicts = []          # Holds the games with conflicting times in a day
     sortedConflicts = []    # Holds the sorted games with conflicts              
@@ -111,6 +111,7 @@ def formatDate(date):
 
     return formattedDate
 
+# Adds the header cell to the table to define what each stat means
 def create_head(content, color):
     tab = '\n\t\t\t'
     content += ('\n\t\t<tr>')
@@ -128,39 +129,40 @@ def create_head(content, color):
     content += ('\n\t\t</tr>')
     return content 
 
+# Adds stats of the teams to the table
 def create_cell(content, team, color):
     tab = '\n\t\t\t'
     content += ('\n\t\t<tr>')
     content += (tab + '<td style="background-color: '+color+'"><img src="'+team.name+'.png"> </td>')              # Adds the team logo
     content += (tab + '<td style="background-color: '+color+'">'+team.name+'</td>')                               # Adds the team name
     content += (tab + '<td style="background-color: '+color+'">'+team.rank+'</td>')                               # Adds the team rank
-    content += (tab + '<td style="background-color: '+color+'">'+team.pl+'</td>')                                 # Adds the team Played
-    content += (tab + '<td style="background-color: '+color+'">'+team.w+'</td>')                                  # Adds the team Won
-    content += (tab + '<td style="background-color: '+color+'">'+team.d+'</td>')                                  # Adds the team Drawn
-    content += (tab + '<td style="background-color: '+color+'">'+team.l+'</td>')                                  # Adds the team Lost
-    content += (tab + '<td style="background-color: '+color+'">'+team.gf+'</td>')                                 # Adds the team GF
-    content += (tab + '<td style="background-color: '+color+'">'+team.ga+'</td>')                                 # Adds the team GA
-    content += (tab + '<td style="background-color: '+color+'">'+team.gd+'</td>')                                 # Adds the team GD
-    content += (tab + '<td style="background-color: '+color+'">'+team.pts+'</td>')                                # Adds the team Points
+    content += (tab + '<td style="background-color: '+color+'">'+team.pl+'</td>')                                 # Adds the number of games the team has played
+    content += (tab + '<td style="background-color: '+color+'">'+team.w+'</td>')                                  # Adds the number of games the team won
+    content += (tab + '<td style="background-color: '+color+'">'+team.d+'</td>')                                  # Adds the number of games the team drawn
+    content += (tab + '<td style="background-color: '+color+'">'+team.l+'</td>')                                  # Adds the number of games the team lost
+    content += (tab + '<td style="background-color: '+color+'">'+team.gf+'</td>')                                 # Adds the number of goals the team has made
+    content += (tab + '<td style="background-color: '+color+'">'+team.ga+'</td>')                                 # Adds the number of goals the team has conceded stat
+    content += (tab + '<td style="background-color: '+color+'">'+team.gd+'</td>')                                 # Adds the difference between GF and GA
+    content += (tab + '<td style="background-color: '+color+'">'+team.pts+'</td>')                                # Adds the number of points the team has
     content += ('\n\t\t</tr>')
     return content
 
 def edit_index(schedule):
+
     # Make an S3 client
     s3_client = boto3.client('s3')
     
     # Define the bucket name
-    bucket_name = 'staticwebsitefootball'
+    bucket_name = 'www.premierwatchlist.net'
     
     # Define the file name
-    file = 'index.html'
-    currentDate = ''
-    currentTime = ''
-    # time_colors = ['Orange', 'Salmon', 'Tomato', 'Coral', 'Khaki', 'LemonChiffon', 'PeachPuff']  # Holds the color of the time tables
-    time_colors = ['Blue', '#5dade2', '#85c1e9', '#a9cce3', '#d0e8f2', '#abebc6', 'Green']  # Holds the color of the time tables
-    rank_colors = ['Gold', 'Silver', 'rgb(205, 127, 50)']                                        # Holds the top 1, 2, and 3 ranked game of the time's colors (gold, silver, bronze)
-    count_1 = 0
-    count_2 = 0
+    file = 'index.html'                                                                         # Holds the name of the file creating the stat website
+    currentDate = ''                                                                            # Holds the date of the current game
+    currentTime = ''                                                                            # Holds the time of the current game
+    time_colors = ['Blue', '#5dade2', '#85c1e9', '#a9cce3', '#d0e8f2', '#abebc6', 'Green']      # Holds the color of the time tables
+    rank_colors = ['Gold', 'Silver', 'rgb(205, 127, 50)']                                       # Holds the top 1, 2, and 3 ranked game of the time's colors (gold, silver, bronze)
+    time_color_count = 0                                                                        # Increments the color being used in time_colors
+    rank_color_count = 0                                                                        # Increments the color being used in rank_colors
     
     # Rewrite the content of the file by iterating through the schedule
     content = '<html xmlns="http://www.w3.org/1999/whtml" >\n<head>\n\t<title>Premier League Schedule</title>\n</head>\n<body>\n\t<h1>Premier League Rank</h1>'
@@ -170,37 +172,40 @@ def edit_index(schedule):
         
         if (schedule[i].homeTeam != ''):
             
+            # Checks if this game is on a new day then the last game
             if schedule[i].day != currentDate:
                 formattedDate = formatDate(schedule[i].day)
-                content += ('\n\t<h2>'+str(formattedDate)+'</h2>')                              # Adds the Date
+                content += ('\n\t<h2>'+str(formattedDate)+'</h2>')                              # Adds the Date to the file
                 currentDate = schedule[i].day
-                count_2 = 0
+                rank_color_count = 0
 
-            content += ('\n\t<table style="background-color: ' + time_colors[count_1] + '">')  # Adds the table header
+            content += ('\n\t<table style="background-color: ' + time_colors[time_color_count] + '">')   # Adds the table header
             
+            # Checks if this game is at a new time then the last game
             if schedule[i].time != currentTime:
                 content += ('<td><h3>'+str(schedule[i].time)+'</h3></td>')                      # Adds the time
                 currentTime = schedule[i].time
-                count_1 = 0
-                count_2 = 0
-            
-                                                                 
+                time_color_count = 0
+                rank_color_count = 0
             
             # Checks if the game is in the top 3 games to watch for the time in the day
-            if count_2 <= 2:
-                content = create_head(content, rank_colors[count_2])                                                          # Adds the head of the teams stats
-                content = create_cell(content, schedule[i].homeTeam, rank_colors[count_2])                # Adds a cell to the table
-                content = create_cell(content, schedule[i].awayTeam, rank_colors[count_2])                # Adds a cell to the table
-            else:
-                content = create_head(content, 'white')                                                            # Adds the head of the teams stats
-                content = create_cell(content, schedule[i].homeTeam, 'white')                               # Adds a cell to the table
-                content = create_cell(content, schedule[i].awayTeam, 'white')                               # Adds a cell to the table
+            if rank_color_count <= 2:
+                content = create_head(content, rank_colors[rank_color_count])                                      # Adds the head of the teams stats
+                content = create_cell(content, schedule[i].homeTeam, rank_colors[rank_color_count])                # Adds a cell to the table for home team
+                content = create_cell(content, schedule[i].awayTeam, rank_colors[rank_color_count])                # Adds a cell to the table for away team
             
-            content += ('\n\t</table>')
+            # If it is not in the top 3, background is white
+            else:
+                content = create_head(content, 'white')                                                   # Adds the head of the teams stats
+                content = create_cell(content, schedule[i].homeTeam, 'white')                             # Adds a cell to the table for home team
+                content = create_cell(content, schedule[i].awayTeam, 'white')                             # Adds a cell to the table for away team
+            
+            content += ('\n\t</table>')                          # Closes the table section
             
             currentDate = schedule[i].day                                                       # Update the current date
-            count_2 += 1
-        count_1 += 1   
+            rank_color_count += 1                                # Update to go to the next rank color
+        time_color_count += 1                               # Update to go to the next time color
+    
     # End body and html sections
     content += "\n</body>\n</html>"
     
@@ -208,7 +213,10 @@ def edit_index(schedule):
     s3_client.put_object(Bucket=bucket_name, Key=file, Body=content, ContentType='text/html')
     
 def lambda_handler(event, context):
-    schedule = rank(ti,di)
+    # Creates a schedule in the order of games to watch
+    schedule = rank(di)
+
+    # Edits the static website with the new schedule
     edit_index(schedule)
     
     return {
