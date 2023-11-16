@@ -1,7 +1,7 @@
 # Premier-League-Website
 
 This project is to create a website to see the most interesting Premier League soccer games for the week. 
-The website (https://staticwebsitefootball.s3.amazonaws.com/index.html) is a static website and is hosted on AWS S3.
+The website (https://www.premierwatchlist.net) is a static website and is hosted on AWS S3.
 The main programs running this project are Teams.py, Games.py, and Main.py and do the following.
 
 Teams.py - Webscrapes the website 'https://www.premierleague.com/tables' for all stats on each of the 20 teams in the premier
@@ -22,8 +22,8 @@ Main.py -  Creates a schedule for the games by day, time, and most interesting g
            4. (31)  Luton Town (Rank: 18) vs Crystal Palace (Rank: 13)
            3. (29)  Burnley (Rank: 20) vs West Ham United (Rank: 9)
            -
-           Newcastle United and Chelsea have a rank collective total of 17 and all other games have a collective total over 17, this game is 
-           the most interesting to watch. If there is no conflicting game at a certain time, then that game is ranked first to watch. 
+           Newcastle United and Chelsea have a rank collective total of 17 and all other games have a collective total over 17, meaning this 
+           game is the most interesting to watch. If there is no conflicting game at a certain time, then that game is ranked first to watch. 
            Manchester City VS Liverpool is at 7:30 am with no other games at that time for the day, so this game is automatically the most 
            interesting game to watch at that time. Main.py also gets the 'index.html' from the hosted S3 bucket and writes new data into it
            to update the website.
@@ -43,7 +43,7 @@ Folder 'requests-layer.zip' holds the zipped verison of the folder 'requests-lay
 Folder 'web-scraper.zip' holds the files neccessary for the lambda function to run when createded by the CDK
 
 Screenshot of the website with the lambda function updating as if it was on November 24, 2023:
-![image](https://github.com/sjancart/Premier-League-Website/assets/149748778/92eb6a33-567c-403c-9f98-25a29020e545)
+![Website Screenshot](nov-24-2023-website-screenshot.png)
 
 Architecture Diagram of the AWS portion of the project:
-![image](https://github.com/sjancart/Premier-League-Website/assets/149748778/c2a04147-b2a1-4ebb-8c88-f225fe08546d)
+![Architecture Diagram](AWS_Architecture_Diagram.png)
