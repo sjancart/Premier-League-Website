@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/4aadef87abec62bf635fb061af16ec2f887fca2ddf8863c8acbff3b5a5284e3f.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/752ee368d490fb9f88118412f838879cb0a1ea75e37bbc12220047999ac5faa8.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -40,22 +40,22 @@
             "data": "MyLayer38944FA5"
           }
         ],
-        "/CdkFolderStack/Premier-Web-Scraper/ServiceRole/Resource": [
+        "/CdkFolderStack/Premier-League-Watch/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PremierWebScraperServiceRole090A1C97"
+            "data": "PremierLeagueWatchServiceRole5EBF45CB"
           }
         ],
-        "/CdkFolderStack/Premier-Web-Scraper/ServiceRole/DefaultPolicy/Resource": [
+        "/CdkFolderStack/Premier-League-Watch/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PremierWebScraperServiceRoleDefaultPolicy9A18B41B"
+            "data": "PremierLeagueWatchServiceRoleDefaultPolicy90062567"
           }
         ],
-        "/CdkFolderStack/Premier-Web-Scraper/Resource": [
+        "/CdkFolderStack/Premier-League-Watch/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PremierWebScraperFD38134D"
+            "data": "PremierLeagueWatch7362F4E3"
           }
         ],
         "/CdkFolderStack/DailyRule/Resource": [
@@ -64,10 +64,10 @@
             "data": "DailyRule7A0FEF67"
           }
         ],
-        "/CdkFolderStack/DailyRule/AllowEventRuleCdkFolderStackPremierWebScraper9280DD37": [
+        "/CdkFolderStack/DailyRule/AllowEventRuleCdkFolderStackPremierLeagueWatch24287F5B": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "DailyRuleAllowEventRuleCdkFolderStackPremierWebScraper9280DD37255C051A"
+            "data": "DailyRuleAllowEventRuleCdkFolderStackPremierLeagueWatch24287F5B4EAE2473"
           }
         ],
         "/CdkFolderStack/CDKMetadata/Default": [

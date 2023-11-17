@@ -97,10 +97,11 @@ class Day:
 
 """MAIN"""
 for num in range(0, num_instances):
-    today_date = datetime.now().date() + timedelta(days=num)
-    today_date = re.sub('-','',str(today_date))
+    
+    today_date = (datetime.now().date() + timedelta(days=num)).strftime('%Y%m%d')
 
     game_website = 'https://www.cbssports.com/soccer/premier-league/schedule/'+str(today_date)+'/'
     response_games = requests.get(game_website)
+    
     d = Day(response_games, today_date)
     day_instances.append(d)

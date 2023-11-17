@@ -20,7 +20,7 @@
     "aws:asset:property": "Content"
    }
   },
-  "PremierWebScraperServiceRole090A1C97": {
+  "PremierLeagueWatchServiceRole5EBF45CB": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -51,16 +51,18 @@
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "CdkFolderStack/Premier-Web-Scraper/ServiceRole/Resource"
+    "aws:cdk:path": "CdkFolderStack/Premier-League-Watch/ServiceRole/Resource"
    }
   },
-  "PremierWebScraperServiceRoleDefaultPolicy9A18B41B": {
+  "PremierLeagueWatchServiceRoleDefaultPolicy90062567": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
      "Statement": [
       {
        "Action": [
+        "cloudfront:*",
+        "route53:*",
         "s3-object-lambda:*",
         "s3:*"
        ],
@@ -70,25 +72,25 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "PremierWebScraperServiceRoleDefaultPolicy9A18B41B",
+    "PolicyName": "PremierLeagueWatchServiceRoleDefaultPolicy90062567",
     "Roles": [
      {
-      "Ref": "PremierWebScraperServiceRole090A1C97"
+      "Ref": "PremierLeagueWatchServiceRole5EBF45CB"
      }
     ]
    },
    "Metadata": {
-    "aws:cdk:path": "CdkFolderStack/Premier-Web-Scraper/ServiceRole/DefaultPolicy/Resource"
+    "aws:cdk:path": "CdkFolderStack/Premier-League-Watch/ServiceRole/DefaultPolicy/Resource"
    }
   },
-  "PremierWebScraperFD38134D": {
+  "PremierLeagueWatch7362F4E3": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "720f92e82509b5f906ade688f957b86eb9203780329fc264ffa411d4ef005806.zip"
+     "S3Key": "b8e44fd5682c88bebf29ae7c58a49e3544434a49e3d923355f1a4676e4e5e547.zip"
     },
     "Handler": "Main.lambda_handler",
     "Layers": [
@@ -98,20 +100,20 @@
     ],
     "Role": {
      "Fn::GetAtt": [
-      "PremierWebScraperServiceRole090A1C97",
+      "PremierLeagueWatchServiceRole5EBF45CB",
       "Arn"
      ]
     },
     "Runtime": "python3.11",
-    "Timeout": 600
+    "Timeout": 900
    },
    "DependsOn": [
-    "PremierWebScraperServiceRoleDefaultPolicy9A18B41B",
-    "PremierWebScraperServiceRole090A1C97"
+    "PremierLeagueWatchServiceRoleDefaultPolicy90062567",
+    "PremierLeagueWatchServiceRole5EBF45CB"
    ],
    "Metadata": {
-    "aws:cdk:path": "CdkFolderStack/Premier-Web-Scraper/Resource",
-    "aws:asset:path": "asset.720f92e82509b5f906ade688f957b86eb9203780329fc264ffa411d4ef005806.zip",
+    "aws:cdk:path": "CdkFolderStack/Premier-League-Watch/Resource",
+    "aws:asset:path": "asset.b8e44fd5682c88bebf29ae7c58a49e3544434a49e3d923355f1a4676e4e5e547.zip",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -119,13 +121,13 @@
   "DailyRule7A0FEF67": {
    "Type": "AWS::Events::Rule",
    "Properties": {
-    "ScheduleExpression": "cron(0 6 * * ? *)",
+    "ScheduleExpression": "cron(30 5 * * ? *)",
     "State": "ENABLED",
     "Targets": [
      {
       "Arn": {
        "Fn::GetAtt": [
-        "PremierWebScraperFD38134D",
+        "PremierLeagueWatch7362F4E3",
         "Arn"
        ]
       },
@@ -137,13 +139,13 @@
     "aws:cdk:path": "CdkFolderStack/DailyRule/Resource"
    }
   },
-  "DailyRuleAllowEventRuleCdkFolderStackPremierWebScraper9280DD37255C051A": {
+  "DailyRuleAllowEventRuleCdkFolderStackPremierLeagueWatch24287F5B4EAE2473": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
     "FunctionName": {
      "Fn::GetAtt": [
-      "PremierWebScraperFD38134D",
+      "PremierLeagueWatch7362F4E3",
       "Arn"
      ]
     },
@@ -156,7 +158,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "CdkFolderStack/DailyRule/AllowEventRuleCdkFolderStackPremierWebScraper9280DD37"
+    "aws:cdk:path": "CdkFolderStack/DailyRule/AllowEventRuleCdkFolderStackPremierLeagueWatch24287F5B"
    }
   },
   "CDKMetadata": {

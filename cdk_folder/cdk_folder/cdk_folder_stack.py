@@ -23,12 +23,12 @@ class CdkFolderStack(Stack):
         )
 
         # Create our lambda Function
-        my_lambda = lambda_.Function(self, "Premier-Web-Scraper",
+        my_lambda = lambda_.Function(self, "Premier-League-Watch",
                                       handler='Main.lambda_handler',
                                       runtime=lambda_.Runtime.PYTHON_3_11,
                                       layers=[requests_layer],
-                                      code=lambda_.Code.from_asset('../web-scraper.zip'),
-                                      timeout=Duration.minutes(10)
+                                      code=lambda_.Code.from_asset('../lambda-package.zip'),
+                                      timeout=Duration.minutes(15)
                                       )
         
         # Give S3 permissions to lambda function
@@ -36,7 +36,9 @@ class CdkFolderStack(Stack):
             effect=iam.Effect.ALLOW,
             actions=[
                 "s3:*",
-                "s3-object-lambda:*"
+                "s3-object-lambda:*",
+                "cloudfront:*",
+                "route53:*",
             ],
             resources=[
                 '*',
@@ -47,7 +49,7 @@ class CdkFolderStack(Stack):
         rule = events.Rule(
             self,
             "DailyRule",
-            schedule=events.Schedule.cron(minute='0', hour='6'),
+            schedule=events.Schedule.cron(minute='30', hour='5'),
         )
 
         # Add the Lambda function as a target to the rule

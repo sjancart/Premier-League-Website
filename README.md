@@ -43,7 +43,10 @@ Folder 'requests-layer.zip' holds the zipped verison of the folder 'requests-lay
 Folder 'web-scraper.zip' holds the files neccessary for the lambda function to run when createded by the CDK
 
 Screenshot of the website with the lambda function updating as if it was on November 24, 2023:
-![Website Screenshot](nov-24-2023-website-screenshot.png)
+![screenshots/Website Screenshot](nov-24-2023-website-screenshot.png)
+
+Screenshot of the website with no games for the next 7 days (November 17, 2023 - November 23, 2023)
+![screenshots/No Games Website Screenshot](no-games-website-screenshot.png)
 
 Architecture Diagram of the AWS portion of the project:
-![Architecture Diagram](AWS_Architecture_Diagram.png)
+![screenshots/Architecture Diagram](AWS_Architecture_Diagram.png)
