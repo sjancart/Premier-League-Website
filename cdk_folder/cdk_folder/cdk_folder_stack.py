@@ -35,15 +35,50 @@ class CdkFolderStack(Stack):
         my_lambda.add_to_role_policy(iam.PolicyStatement(
             effect=iam.Effect.ALLOW,
             actions=[
-                "s3:*",
-                "s3-object-lambda:*",
-                "cloudfront:*",
-                "route53:*",
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:ListBucket"
+            ],
+            resources=[
+                "arn:aws:s3:::www.premierwatchlist.net/*",
+                "arn:aws:s3:::www.premierwatchlist.net"
+            ],
+        ))
+
+        # Gives CloudFront permissions to lambda function
+        my_lambda.add_to_role_policy(iam.PolicyStatement(
+            effect=iam.Effect.ALLOW,
+            actions=[
+                "cloudfront:GetDistributionConfig",
+				"cloudfront:CreateDistribution",
+				"cloudfront:GetDistribution",
+				"cloudfront:ListDistributions",
+				"cloudfront:TagResource",
+				"cloudfront:UpdateDistribution",
+				"cloudfront:DeleteDistribution"
             ],
             resources=[
                 '*',
             ],
         ))
+
+        # Gives route 53 permissions to lambda function
+        my_lambda.add_to_role_policy(iam.PolicyStatement(
+        effect=iam.Effect.ALLOW,
+        actions=[
+            "route53:ChangeResourceRecordSets",
+            "route53:GetChange",
+            "route53:ListResourceRecordSets"
+        ],
+        resources=[
+            "arn:aws:route53:::hostedzone/Z0402118S674EV25HLOF",
+            "arn:aws:route53:::change/*"
+        ]
+        ))
+
+        # Attach AWS managed policies to the Lambda function's role
+        # my_lambda.role.add_managed_policy(my_lambda.add_to_role_policy("service-role/AWSLambdaBasicExecutionRole"))
+        # my_lambda.role.add_managed_policy(my_lambda.add_to_role_policy("service-role/AWSLambdaRole"))
 
         # Create an EventBridge (CloudWatch Events) Trigger for every day at 6:00am UTC (1:00am EST)
         rule = events.Rule(

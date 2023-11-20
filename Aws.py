@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 def disable_cloudfront_distribution():
     cloudfront_client = boto3.client('cloudfront')
     cname = 'www.premierwatchlist.net'
+    distribution_id = 'Null'
     # List all CloudFront distributions
     distributions = cloudfront_client.list_distributions()
     try:
@@ -211,8 +212,9 @@ def create_cloudfront_distribution(id):
     
     cloudfront_client = boto3.client('cloudfront', region_name='us-east-1')
     
-    # Delete the previous distribution
-    delete_cloudfront_distribution(cloudfront_client, id)
+    # Delete the previous distribution, if there was one
+    if id != "Null":
+        delete_cloudfront_distribution(cloudfront_client, id)
     
     # Make a new distribution
     distribution_config = {

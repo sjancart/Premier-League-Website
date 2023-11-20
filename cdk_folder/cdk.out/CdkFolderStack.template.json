@@ -61,13 +61,40 @@
      "Statement": [
       {
        "Action": [
-        "cloudfront:*",
-        "route53:*",
-        "s3-object-lambda:*",
-        "s3:*"
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:PutObject"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:s3:::www.premierwatchlist.net",
+        "arn:aws:s3:::www.premierwatchlist.net/*"
+       ]
+      },
+      {
+       "Action": [
+        "cloudfront:CreateDistribution",
+        "cloudfront:DeleteDistribution",
+        "cloudfront:GetDistribution",
+        "cloudfront:GetDistributionConfig",
+        "cloudfront:ListDistributions",
+        "cloudfront:TagResource",
+        "cloudfront:UpdateDistribution"
        ],
        "Effect": "Allow",
        "Resource": "*"
+      },
+      {
+       "Action": [
+        "route53:ChangeResourceRecordSets",
+        "route53:GetChange",
+        "route53:ListResourceRecordSets"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:route53:::change/*",
+        "arn:aws:route53:::hostedzone/Z0402118S674EV25HLOF"
+       ]
       }
      ],
      "Version": "2012-10-17"
@@ -90,7 +117,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "b8e44fd5682c88bebf29ae7c58a49e3544434a49e3d923355f1a4676e4e5e547.zip"
+     "S3Key": "010aa8e2e0238c4c0d8e656b03c9dc09690cdf22c37589f548c376a662459456.zip"
     },
     "Handler": "Main.lambda_handler",
     "Layers": [
@@ -113,7 +140,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "CdkFolderStack/Premier-League-Watch/Resource",
-    "aws:asset:path": "asset.b8e44fd5682c88bebf29ae7c58a49e3544434a49e3d923355f1a4676e4e5e547.zip",
+    "aws:asset:path": "asset.010aa8e2e0238c4c0d8e656b03c9dc09690cdf22c37589f548c376a662459456.zip",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
